@@ -1,0 +1,81 @@
+name: CZT Simulation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'examples/**'
+      - 'src/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: simulation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  simulate:
+    name: Run CZT Simulation
+    runs-on: ubuntu-latest
+    env:
+      JULIA_NUM_THREADS: 4
+      GKSwstype: '100'  # headless GR backend for Plots.jl
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1'
+
+      - uses: julia-actions/cache@v2
+
+      - name: Add LegendJuliaRegistry
+        run: julia -e 'using Pkg; Pkg.Registry.add("General"); Pkg.Registry.add(Pkg.RegistrySpec(url = "https://github.com/legend-exp/LegendJuliaRegistry"))'
+
+      - uses: julia-actions/julia-buildpkg@v1
+        env:
+          PYTHON: 'Conda'
+
+      - name: Install plotting dependencies
+        run: julia --project=. -e 'using Pkg; Pkg.add(["Plots", "JLD2", "Unitful"])'
+
+      - name: Run simulation
+        run: julia --threads=auto --project=. examples/run_diffusion_sim.jl
+
+      - name: Generate plots
+        run: julia --project=. examples/plot_diffusion_results.jl
+
+      - name: Generate HTML gallery
+        run: julia --project=. examples/generate_gallery.jl
+
+      - name: Upload simulation results
+        uses: actions/upload-artifact@v4
+        with:
+          name: czt-simulation-results
+          path: examples/output_diffusion/site
+          retention-days: 30
+
+  notify:
+    name: Notify Slack
+    needs: simulate
+    runs-on: ubuntu-latest
+    if: always() && needs.simulate.result == 'success'
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    steps:
+      - name: Post to Slack
+        if: env.SLACK_WEBHOOK_URL != ''
+        run: |
+          COMMIT_SHORT=$(echo "$GITHUB_SHA" | cut -c1-7)
+          COMMIT_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/commit/$GITHUB_SHA"
+          RUN_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          curl -X POST "$SLACK_WEBHOOK_URL" \
+            -H 'Content-type: application/json' \
+            -d "{
+              \"blocks\": [
+                {\"type\":\"header\",\"text\":{\"type\":\"plain_text\",\"text\":\"CZT Simulation Complete\"}},
+                {\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"*Commit:* <$COMMIT_URL|$COMMIT_SHORT>\n*Branch:* $GITHUB_REF_NAME\n*Actor:* $GITHUB_ACTOR\n\n<$RUN_URL|Download results artifact>\"}}
+              ]
+            }"
