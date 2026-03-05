@@ -1,0 +1,154 @@
+name: CZT Strip Detector - Reduced (CTSI)
+
+# Reduced CZT strip detector for fast iteration and validation.
+# Same crystal and physics as the full detector, but with only:
+#   5 central anode strips (IDs 1-5) at x = -2, -1, 0, +1, +2 mm
+#   2 central cathode strips (IDs 6-7) at y = -2.5, +2.5 mm
+# Fewer contacts means fewer weighting potential calculations needed.
+
+units:
+  length: mm
+  angle: deg
+  potential: V
+  temperature: K
+
+grid:
+  coordinates: cartesian
+  axes:
+    x:
+      from: -22
+      to: 22
+      boundaries: inf
+    y:
+      from: -22
+      to: 22
+      boundaries: inf
+    z:
+      from: -4
+      to: 4
+      boundaries: inf
+
+medium: vacuum
+
+detectors:
+  - semiconductor:
+      material: CZT
+      temperature: 293
+      impurity_density:
+        name: constant
+        value: 0
+      charge_drift_model:
+        model: IsotropicChargeDriftModel
+        mobilities:
+          e: 1000cm^2/(V*s)
+          h: 50cm^2/(V*s)
+      charge_trapping_model:
+        model: ConstantLifetime
+        parameters:
+          τe: 10e-6s
+          τh: 1e-6s
+      geometry:
+        box:
+          widths: [40, 40, 5]
+
+    contacts:
+      # ============================================================
+      # 5 central anode strips (IDs 1-5): top face z=+2.5mm
+      # Strip centers at x = -2, -1, 0, +1, +2 mm
+      # ============================================================
+
+      - material: CZT
+        id: 1
+        name: Anode 1
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: -2
+              z: 2.5
+
+      - material: CZT
+        id: 2
+        name: Anode 2
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: -1
+              z: 2.5
+
+      - material: CZT
+        id: 3
+        name: Anode 3
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 0
+              z: 2.5
+
+      - material: CZT
+        id: 4
+        name: Anode 4
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 1
+              z: 2.5
+
+      - material: CZT
+        id: 5
+        name: Anode 5
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 2
+              z: 2.5
+
+      # ============================================================
+      # 2 central cathode strips (IDs 6-7): bottom face z=-2.5mm
+      # Strip centers at y = -2.5, +2.5 mm
+      # ============================================================
+
+      - material: CZT
+        id: 6
+        name: Cathode 1
+        potential: 0
+        geometry:
+          box:
+            hX: 20
+            hY: 2.45
+            hZ: 0
+            origin:
+              y: -2.5
+              z: -2.5
+
+      - material: CZT
+        id: 7
+        name: Cathode 2
+        potential: 0
+        geometry:
+          box:
+            hX: 20
+            hY: 2.45
+            hZ: 0
+            origin:
+              y: 2.5
+              z: -2.5

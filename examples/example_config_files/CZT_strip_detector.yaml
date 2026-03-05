@@ -1,0 +1,724 @@
+name: CZT Strip Detector (CTSI)
+
+# CZT planar strip detector: 40mm x 40mm x 5mm
+# 39 anode strips on top face (z=+2.5mm), running along Y, 1mm pitch, 100um wide
+# 8 cathode strips on bottom face (z=-2.5mm), running along X, 5mm pitch, 4.9mm wide
+# Bias: 600V total (anodes at +600V, cathodes at 0V) => 1200 V/cm
+
+units:
+  length: mm
+  angle: deg
+  potential: V
+  temperature: K
+
+grid:
+  coordinates: cartesian
+  axes:
+    x:
+      from: -22
+      to: 22
+      boundaries: inf
+    y:
+      from: -22
+      to: 22
+      boundaries: inf
+    z:
+      from: -4
+      to: 7
+      boundaries: inf
+
+medium: vacuum
+
+detectors:
+  - semiconductor:
+      material: CZT
+      temperature: 293
+      impurity_density:
+        name: constant
+        value: 0
+      charge_drift_model:
+        model: IsotropicChargeDriftModel
+        mobilities:
+          e: 1000cm^2/(V*s)
+          h: 50cm^2/(V*s)
+      charge_trapping_model:
+        model: ConstantLifetime
+        parameters:
+          τe: 10e-6s
+          τh: 1e-6s
+      geometry:
+        box:
+          widths: [40, 40, 5]
+
+    contacts:
+      # ============================================================
+      # Anode strips (IDs 1-39): top face z=+2.5mm
+      # Each strip: 100um wide (hX=0.05mm), runs full length in Y (hY=20mm)
+      # Surface contact on top face (hZ=0)
+      # Strip centers at x = -19, -18, ..., 0, ..., +19 mm (1mm pitch)
+      # ============================================================
+
+      # Anode 1: x = -19mm
+      - material: CZT
+        id: 1
+        name: Anode 1
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: -19
+              z: 2.5
+
+      # Anode 2: x = -18mm
+      - material: CZT
+        id: 2
+        name: Anode 2
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: -18
+              z: 2.5
+
+      # Anode 3: x = -17mm
+      - material: CZT
+        id: 3
+        name: Anode 3
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: -17
+              z: 2.5
+
+      # Anode 4: x = -16mm
+      - material: CZT
+        id: 4
+        name: Anode 4
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: -16
+              z: 2.5
+
+      # Anode 5: x = -15mm
+      - material: CZT
+        id: 5
+        name: Anode 5
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: -15
+              z: 2.5
+
+      # Anode 6: x = -14mm
+      - material: CZT
+        id: 6
+        name: Anode 6
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: -14
+              z: 2.5
+
+      # Anode 7: x = -13mm
+      - material: CZT
+        id: 7
+        name: Anode 7
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: -13
+              z: 2.5
+
+      # Anode 8: x = -12mm
+      - material: CZT
+        id: 8
+        name: Anode 8
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: -12
+              z: 2.5
+
+      # Anode 9: x = -11mm
+      - material: CZT
+        id: 9
+        name: Anode 9
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: -11
+              z: 2.5
+
+      # Anode 10: x = -10mm
+      - material: CZT
+        id: 10
+        name: Anode 10
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: -10
+              z: 2.5
+
+      # Anode 11: x = -9mm
+      - material: CZT
+        id: 11
+        name: Anode 11
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: -9
+              z: 2.5
+
+      # Anode 12: x = -8mm
+      - material: CZT
+        id: 12
+        name: Anode 12
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: -8
+              z: 2.5
+
+      # Anode 13: x = -7mm
+      - material: CZT
+        id: 13
+        name: Anode 13
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: -7
+              z: 2.5
+
+      # Anode 14: x = -6mm
+      - material: CZT
+        id: 14
+        name: Anode 14
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: -6
+              z: 2.5
+
+      # Anode 15: x = -5mm
+      - material: CZT
+        id: 15
+        name: Anode 15
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: -5
+              z: 2.5
+
+      # Anode 16: x = -4mm
+      - material: CZT
+        id: 16
+        name: Anode 16
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: -4
+              z: 2.5
+
+      # Anode 17: x = -3mm
+      - material: CZT
+        id: 17
+        name: Anode 17
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: -3
+              z: 2.5
+
+      # Anode 18: x = -2mm
+      - material: CZT
+        id: 18
+        name: Anode 18
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: -2
+              z: 2.5
+
+      # Anode 19: x = -1mm
+      - material: CZT
+        id: 19
+        name: Anode 19
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: -1
+              z: 2.5
+
+      # Anode 20: x = 0mm (center)
+      - material: CZT
+        id: 20
+        name: Anode 20
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 0
+              z: 2.5
+
+      # Anode 21: x = +1mm
+      - material: CZT
+        id: 21
+        name: Anode 21
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 1
+              z: 2.5
+
+      # Anode 22: x = +2mm
+      - material: CZT
+        id: 22
+        name: Anode 22
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 2
+              z: 2.5
+
+      # Anode 23: x = +3mm
+      - material: CZT
+        id: 23
+        name: Anode 23
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 3
+              z: 2.5
+
+      # Anode 24: x = +4mm
+      - material: CZT
+        id: 24
+        name: Anode 24
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 4
+              z: 2.5
+
+      # Anode 25: x = +5mm
+      - material: CZT
+        id: 25
+        name: Anode 25
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 5
+              z: 2.5
+
+      # Anode 26: x = +6mm
+      - material: CZT
+        id: 26
+        name: Anode 26
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 6
+              z: 2.5
+
+      # Anode 27: x = +7mm
+      - material: CZT
+        id: 27
+        name: Anode 27
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 7
+              z: 2.5
+
+      # Anode 28: x = +8mm
+      - material: CZT
+        id: 28
+        name: Anode 28
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 8
+              z: 2.5
+
+      # Anode 29: x = +9mm
+      - material: CZT
+        id: 29
+        name: Anode 29
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 9
+              z: 2.5
+
+      # Anode 30: x = +10mm
+      - material: CZT
+        id: 30
+        name: Anode 30
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 10
+              z: 2.5
+
+      # Anode 31: x = +11mm
+      - material: CZT
+        id: 31
+        name: Anode 31
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 11
+              z: 2.5
+
+      # Anode 32: x = +12mm
+      - material: CZT
+        id: 32
+        name: Anode 32
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 12
+              z: 2.5
+
+      # Anode 33: x = +13mm
+      - material: CZT
+        id: 33
+        name: Anode 33
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 13
+              z: 2.5
+
+      # Anode 34: x = +14mm
+      - material: CZT
+        id: 34
+        name: Anode 34
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 14
+              z: 2.5
+
+      # Anode 35: x = +15mm
+      - material: CZT
+        id: 35
+        name: Anode 35
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 15
+              z: 2.5
+
+      # Anode 36: x = +16mm
+      - material: CZT
+        id: 36
+        name: Anode 36
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 16
+              z: 2.5
+
+      # Anode 37: x = +17mm
+      - material: CZT
+        id: 37
+        name: Anode 37
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 17
+              z: 2.5
+
+      # Anode 38: x = +18mm
+      - material: CZT
+        id: 38
+        name: Anode 38
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 18
+              z: 2.5
+
+      # Anode 39: x = +19mm
+      - material: CZT
+        id: 39
+        name: Anode 39
+        potential: 600
+        geometry:
+          box:
+            hX: 0.05
+            hY: 20
+            hZ: 0
+            origin:
+              x: 19
+              z: 2.5
+
+      # ============================================================
+      # Cathode strips (IDs 40-47): bottom face z=-2.5mm
+      # Each strip: 4.9mm wide (hY=2.45mm), runs full length in X (hX=20mm)
+      # Surface contact on bottom face (hZ=0)
+      # Strip centers at y = -17.5, -12.5, -7.5, -2.5, +2.5, +7.5, +12.5, +17.5 mm
+      # ============================================================
+
+      # Cathode 1: y = -17.5mm
+      - material: CZT
+        id: 40
+        name: Cathode 1
+        potential: 0
+        geometry:
+          box:
+            hX: 20
+            hY: 2.45
+            hZ: 0
+            origin:
+              y: -17.5
+              z: -2.5
+
+      # Cathode 2: y = -12.5mm
+      - material: CZT
+        id: 41
+        name: Cathode 2
+        potential: 0
+        geometry:
+          box:
+            hX: 20
+            hY: 2.45
+            hZ: 0
+            origin:
+              y: -12.5
+              z: -2.5
+
+      # Cathode 3: y = -7.5mm
+      - material: CZT
+        id: 42
+        name: Cathode 3
+        potential: 0
+        geometry:
+          box:
+            hX: 20
+            hY: 2.45
+            hZ: 0
+            origin:
+              y: -7.5
+              z: -2.5
+
+      # Cathode 4: y = -2.5mm
+      - material: CZT
+        id: 43
+        name: Cathode 4
+        potential: 0
+        geometry:
+          box:
+            hX: 20
+            hY: 2.45
+            hZ: 0
+            origin:
+              y: -2.5
+              z: -2.5
+
+      # Cathode 5: y = +2.5mm
+      - material: CZT
+        id: 44
+        name: Cathode 5
+        potential: 0
+        geometry:
+          box:
+            hX: 20
+            hY: 2.45
+            hZ: 0
+            origin:
+              y: 2.5
+              z: -2.5
+
+      # Cathode 6: y = +7.5mm
+      - material: CZT
+        id: 45
+        name: Cathode 6
+        potential: 0
+        geometry:
+          box:
+            hX: 20
+            hY: 2.45
+            hZ: 0
+            origin:
+              y: 7.5
+              z: -2.5
+
+      # Cathode 7: y = +12.5mm
+      - material: CZT
+        id: 46
+        name: Cathode 7
+        potential: 0
+        geometry:
+          box:
+            hX: 20
+            hY: 2.45
+            hZ: 0
+            origin:
+              y: 12.5
+              z: -2.5
+
+      # Cathode 8: y = +17.5mm
+      - material: CZT
+        id: 47
+        name: Cathode 8
+        potential: 0
+        geometry:
+          box:
+            hX: 20
+            hY: 2.45
+            hZ: 0
+            origin:
+              y: 17.5
+              z: -2.5
